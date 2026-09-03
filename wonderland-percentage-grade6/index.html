@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wonderland Percent Mission · Grade 6</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">♡ Wonderland Percent Mission</div>
+    <div class="mission-progress" aria-label="Mission progress">
+      <div class="progress-copy"><span id="progressText">0 / 8 quests</span></div>
+      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+    </div>
+    <div class="topbar-actions">
+      <button id="teacherPassBtn" class="teacher-pass-btn" type="button" title="Teacher shortcut: complete the current quest and open the next one">🗝 Teacher Pass</button>
+      <button id="restartBtn" class="soft-btn" type="button">↻ New Adventure</button>
+    </div>
+  </header>
+
+  <nav class="quest-map" aria-label="Quest map">
+    <button class="map-node current" data-target="fdp" type="button"><span>1</span><small>F · D · %</small></button><span class="map-path"></span>
+    <button class="map-node locked" data-target="hundred" type="button" disabled><span>2</span><small>Per 100</small></button><span class="map-path"></span>
+    <button class="map-node locked" data-target="fraction" type="button" disabled><span>3</span><small>Fraction → %</small></button><span class="map-path"></span>
+    <button class="map-node locked" data-target="decimal" type="button" disabled><span>4</span><small>Decimal → %</small></button><span class="map-path"></span>
+    <button class="map-node locked" data-target="quantity" type="button" disabled><span>5</span><small>% of Amount</small></button><span class="map-path"></span>
+    <button class="map-node locked" data-target="discountStory" type="button" disabled><span>6</span><small>Discount</small></button><span class="map-path"></span>
+    <button class="map-node locked" data-target="percentStory" type="button" disabled><span>7</span><small>What %?</small></button><span class="map-path"></span>
+    <button class="map-node locked" data-target="remainingStory" type="button" disabled><span>8</span><small>Remaining</small></button><span class="map-path chapter-path"></span>
+    <button class="map-node locked chapter3-node" data-target="teaCrowdStory" type="button" disabled><span>9</span><small>% of Amount+</small></button><span class="map-path"></span>
+    <button class="map-node locked chapter3-node" data-target="fractionCakeStory" type="button" disabled><span>10</span><small>Fraction Story</small></button><span class="map-path"></span>
+    <button class="map-node locked chapter3-node" data-target="decimalEmptyStory" type="button" disabled><span>11</span><small>Decimal Story</small></button><span class="map-path"></span>
+    <button class="map-node locked chapter3-node" data-target="budgetStory" type="button" disabled><span>12</span><small>Two-Step Sale</small></button><span class="map-path"></span>
+    <button class="map-node locked chapter3-node" data-target="reverseStory" type="button" disabled><span>13</span><small>Reverse %</small></button>
+  </nav>
+
+  <div id="rabbit" class="rabbit-guide" aria-hidden="true">
+    <div id="rabbitBubble" class="rabbit-bubble">Ready for a new mission? ✨</div>
+    <img src="assets/rabbit.png" alt="" />
+  </div>
+
+  <main id="game">
+    <section class="scene intro-scene active" id="intro" data-rabbit="Oh! You're here! Wonderland needs a percentage detective! 🐇✨">
+      <div class="scene-overlay"></div>
+      <div class="intro-layout intro-clean">
+        <div class="story-panel glass-card prologue-panel clean-prologue">
+          <p class="eyebrow">TODAY'S WONDERLAND ADVENTURE</p>
+          <h1>Something Strange Happened to the Garden Labels...</h1>
+          <div class="story-dialogue rabbit-line">
+            <span class="speaker-icon">🐇</span>
+            <div>“Alice! These labels look different... but I think some of them mean the same thing!”</div>
+          </div>
+          <div class="mystery-strip compact-mystery" aria-label="Fraction decimal percentage mystery">
+            <div class="mystery-card"><span class="big-fraction"><span>3</span><span>4</span></span></div>
+            <span class="mystery-symbol">?</span>
+            <div class="mystery-card"><strong>0.75</strong></div>
+            <span class="mystery-symbol">?</span>
+            <div class="mystery-card"><strong>75%</strong></div>
+          </div>
+          <div class="story-dialogue alice-line">
+            <span class="speaker-icon">🎀</span>
+            <div>“Come with us. We’ll solve the clues one at a time.”</div>
+          </div>
+          <button id="startBtn" class="primary-btn start-adventure-btn" type="button">Follow the White Rabbit →</button>
+        </div>
+
+        <div class="intro-visual glass-card" aria-hidden="true">
+          <div class="floating-label label-fraction"><span class="fraction"><span>1</span><span>2</span></span></div>
+          <div class="floating-label label-decimal">0.5</div>
+          <div class="floating-label label-percent">50%</div>
+          <div class="garden-path-glow"></div>
+          <div class="intro-flowers">🌷 🌼 🍄 🌹</div>
+          <div class="intro-rabbit-sign">🐇 <span>This way!</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene fdp-scene" id="fdp" data-rabbit="Three forms, one value. Which cards belong together? ♡">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell">
+        <aside class="story-panel glass-card compact">
+          <span class="quest-tag">QUEST 1 · WARM-UP</span>
+          <h2>The Three Magic Doors</h2>
+          <p>Fractions, decimals, and percentages can show the <strong>same amount</strong> in different forms.</p>
+          <div class="mini-example"><span class="fraction"><span>3</span><span>4</span></span><b>=</b><span>0.75</span><b>=</b><span>75%</span></div>
+          <div class="requirement">✨ Solve <strong>2</strong> to open the next door.</div>
+        </aside>
+        <div class="game-card glass-card">
+          <div class="game-heading">
+            <div><p class="eyebrow">FRACTION · DECIMAL · PERCENT</p><h3>Find the matching pair</h3></div>
+            <span id="fdpCount" class="quest-counter">0 / 2 solved</span>
+          </div>
+          <div id="fdpPrompt" class="magic-prompt"></div>
+          <p class="instruction">Choose the card that shows the same value.</p>
+          <div id="fdpChoices" class="choice-grid"></div>
+          <div class="action-row"><button id="fdpHint" class="hint-btn" type="button">💡 Give me a clue</button><button id="fdpNew" class="soft-btn" type="button">🎲 New numbers</button></div>
+          <div id="fdpHintBox" class="hint-panel hidden"></div>
+          <div id="fdpFeedback" class="feedback" aria-live="polite"></div>
+          <div id="fdpAttempts" class="attempt-dots simple-attempts" aria-label="Wrong attempts"><span></span><span></span><span></span></div>
+          <div class="door-animation" id="fdpDoorAnimation"><div class="door left-door">½</div><div class="door middle-door">0.5</div><div class="door right-door">50%</div></div>
+          <button id="fdpNext" class="next-btn locked" type="button" disabled>Door opened! Enter the Percent Garden →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene hundred-scene" id="hundred" data-rabbit="Percent literally means 'out of one hundred'. Let's see it! 🌷">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell reverse">
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">PERCENT = PER 100</p><h3>Read the enchanted hundred-grid</h3></div><span id="hundredCount" class="quest-counter blue">0 / 2 solved</span></div>
+          <div class="hundred-workspace">
+            <div id="hundredGrid" class="hundred-grid" aria-label="100 square grid"></div>
+            <div class="hundred-question">
+              <p><strong id="shadedCount">—</strong> out of 100 squares are glowing.</p>
+              <label>What percentage is glowing?</label>
+              <div class="answer-line"><input id="hundredInput" inputmode="decimal" autocomplete="off" /><span>%</span><button id="hundredCheck" class="primary-btn small" type="button">Check</button></div>
+            </div>
+          </div>
+          <div class="action-row"><button id="hundredHint" class="hint-btn" type="button">🌼 Give me a clue</button><button id="hundredNew" class="soft-btn" type="button">🎲 New grid</button></div>
+          <div id="hundredHintBox" class="hint-panel hidden"></div>
+          <div id="hundredFeedback" class="feedback" aria-live="polite"></div>
+          <div id="hundredAttempts" class="attempt-dots simple-attempts" aria-label="Wrong attempts"><span></span><span></span><span></span></div>
+          <button id="hundredNext" class="next-btn locked" type="button" disabled>Garden gate unlocked →</button>
+        </div>
+        <aside class="story-panel glass-card compact">
+          <span class="quest-tag blue-tag">QUEST 2 · THE BASE</span><h2>The Hundred-Flower Garden</h2>
+          <p>The Queen planted exactly <strong>100 tiny flowers</strong>. The symbol <strong>%</strong> tells us how many out of those 100.</p>
+          <div class="formula-card"><strong>35%</strong><span>=</span><span class="fraction"><span>35</span><span>100</span></span><span>=</span><strong>35 out of 100</strong></div>
+          <div class="requirement blue-note">🌷 Solve <strong>2</strong> grids.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="scene fraction-scene" id="fraction" data-rabbit="Can we turn the denominator into 100? That's our secret shortcut! 🫖">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell">
+        <aside class="story-panel glass-card compact">
+          <span class="quest-tag">QUEST 3 · FRACTION → %</span><h2>The Tea Label Workshop</h2>
+          <p>Every tea bottle needs a percentage label. Start with fractions that can become <strong>something over 100</strong>, then try a trickier one.</p>
+          <div class="strategy-card"><span class="fraction"><span>3</span><span>5</span></span><span class="arrow">→</span><span class="fraction"><span>60</span><span>100</span></span><span class="arrow">→</span><strong>60%</strong></div>
+          <div class="requirement">🫖 Solve <strong>3</strong> labels.</div>
+        </aside>
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">MAKE IT “OUT OF 100”</p><h3>Write the percentage label</h3></div><span id="fractionCount" class="quest-counter">0 / 3 solved</span></div>
+          <div class="tea-label-workspace">
+            <div class="tea-bottle"><div class="tea-liquid" id="teaLiquid"></div><span>TEA</span></div>
+            <div class="conversion-question"><div id="fractionPrompt" class="large-fraction"></div><span class="equals">=</span><div class="answer-line percent-answer"><input id="fractionInput" inputmode="decimal" autocomplete="off" /><span>%</span></div></div>
+          </div>
+          <div class="action-row"><button id="fractionHint" class="hint-btn" type="button">💡 Give me a clue</button><button id="fractionCheck" class="primary-btn small" type="button">Check Label</button><button id="fractionNew" class="soft-btn" type="button">🎲 New fraction</button></div>
+          <div id="fractionHintBox" class="hint-panel hidden"></div>
+          <div id="fractionFeedback" class="feedback" aria-live="polite"></div>
+          <div id="fractionAttempts" class="attempt-dots simple-attempts" aria-label="Wrong attempts"><span></span><span></span><span></span></div>
+          <button id="fractionNext" class="next-btn locked" type="button" disabled>All tea labels fixed →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene decimal-scene" id="decimal" data-rabbit="A decimal is another doorway to percent. Multiply by 100! ✨">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell reverse">
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">DECIMAL → PERCENT</p><h3>Mix the percentage potion</h3></div><span id="decimalCount" class="quest-counter purple">0 / 2 solved</span></div>
+          <div class="potion-workspace">
+            <div class="potion-meter"><div id="potionFill" class="potion-fill"></div><div class="meter-marks"><span>1</span><span>0.5</span><span>0</span></div></div>
+            <div class="decimal-question"><span id="decimalPrompt" class="decimal-value">0.00</span><span class="arrow">→</span><div class="answer-line percent-answer"><input id="decimalInput" inputmode="decimal" autocomplete="off" /><span>%</span></div></div>
+          </div>
+          <div class="action-row"><button id="decimalHint" class="hint-btn" type="button">🧪 Give me a clue</button><button id="decimalCheck" class="primary-btn small" type="button">Check Potion</button><button id="decimalNew" class="soft-btn" type="button">🎲 New decimal</button></div>
+          <div id="decimalHintBox" class="hint-panel hidden"></div>
+          <div id="decimalFeedback" class="feedback" aria-live="polite"></div>
+          <div id="decimalAttempts" class="attempt-dots simple-attempts" aria-label="Wrong attempts"><span></span><span></span><span></span></div>
+          <button id="decimalNext" class="next-btn locked" type="button" disabled>Potion complete! Enter the Rose Garden →</button>
+        </div>
+        <aside class="story-panel glass-card compact">
+          <span class="quest-tag purple-tag">QUEST 4 · DECIMAL → %</span><h2>The Potion Lab</h2>
+          <p>Decimals show parts of one whole. Percentages show the same amount <strong>out of 100</strong>.</p>
+          <div class="formula-card"><strong>0.42</strong><span>× 100</span><span>=</span><strong>42%</strong></div>
+          <div class="requirement purple-note">🧪 Solve <strong>2</strong> potions.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="scene quantity-scene" id="quantity" data-rabbit="Look carefully at the word OF — in maths, OF means multiply! 🌹">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell">
+        <aside class="story-panel glass-card compact">
+          <span class="quest-tag blue-tag">QUEST 5 · % OF AN AMOUNT</span><h2>The Queen's Rose Garden</h2>
+          <p>The word <strong>of</strong> tells us how a part is connected to the total amount.</p>
+          <div class="of-rule-card"><strong>OF = ×</strong><span>25% of 80 → 25% × 80 → 0.25 × 80</span><span>¼ of 80 → ¼ × 80</span></div>
+          <div class="requirement blue-note">🌹 Grow <strong>3</strong> roses.</div>
+        </aside>
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">PERCENTAGE OF A QUANTITY</p><h3>Grow the correct number of roses</h3></div><span id="quantityCount" class="quest-counter blue">0 / 3 solved</span></div>
+          <div class="word-card"><p id="quantityStory"></p><div id="quantityMath" class="big-question"></div></div>
+          <div class="answer-line centered"><input id="quantityInput" inputmode="decimal" autocomplete="off" /><button id="quantityCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="quantityHint" class="hint-btn" type="button">🌹 Give me a clue</button><button id="quantityNew" class="soft-btn" type="button">🎲 New garden</button></div>
+          <div id="quantityHintBox" class="hint-panel hidden"></div>
+          <div id="quantityFeedback" class="feedback" aria-live="polite"></div>
+          <div id="quantityAttempts" class="attempt-dots simple-attempts" aria-label="Wrong attempts"><span></span><span></span><span></span></div>
+          <div class="rose-rewards" id="roseRewards"><span>○</span><span>○</span><span>○</span></div>
+          <button id="quantityNext" class="next-btn locked" type="button" disabled>The roses are blooming! Visit the Mad Hatter →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene discount-story-scene" id="discountStory" data-rabbit="A sale sign! But what price does Alice actually pay? 🎩">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell reverse">
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">STORY QUEST · 1 PROBLEM</p><h3>The Mad Hatter's Hat Sale</h3></div><span class="quest-counter purple">Quest 6</span></div>
+          <div class="story-problem-card"><span class="problem-type">DISCOUNT</span><p id="discountPrompt"></p></div>
+          <div class="story-support-visual discount-visual" id="discountVisual">
+            <div class="mini-hat">🎩</div>
+            <div class="price-board"><span class="tiny-label">ORIGINAL</span><strong id="discountOriginalVisual">—</strong><span>coins</span></div>
+            <div class="discount-burst" id="discountBurst">SALE!</div>
+            <div class="sale-board"><span class="tiny-label">ALICE PAYS</span><strong id="discountSaleVisual">?</strong><span>coins</span></div>
+            <div class="coin-run">● ● ●</div>
+          </div>
+          <div class="answer-line centered story-answer"><input id="discountInput" inputmode="decimal" autocomplete="off" /><span>coins</span><button id="discountCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="discountHint" class="hint-btn" type="button">🔎 Give me a clue</button><button id="discountNew" class="soft-btn" type="button">🎲 New numbers</button></div>
+          <div id="discountHintBox" class="hint-panel hidden"></div>
+          <div id="discountFeedback" class="feedback" aria-live="polite"></div>
+          <div id="discountAttempts" class="attempt-dots" aria-label="Wrong attempts"><span></span><span></span><span></span></div>
+          <button id="discountNext" class="next-btn locked" type="button" disabled>Hat bought! Follow the golden keys →</button>
+        </div>
+        <aside class="story-panel glass-card compact">
+          <span class="quest-tag purple-tag">QUEST 6 · READ THE STORY</span><h2>What does the question want?</h2>
+          <p>First decide what the story is asking for: the <strong>discount amount</strong> or the <strong>price after discount</strong>.</p>
+          <div class="story-checklist"><span>① Circle the question.</span><span>② Notice the word <strong>off</strong>.</span><span>③ Choose a useful percentage strategy.</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="scene percent-story-scene" id="percentStory" data-rabbit="Golden keys! We know the part and the whole... what percentage is that? 🔑">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell">
+        <aside class="story-panel glass-card compact">
+          <span class="quest-tag blue-tag">QUEST 7 · READ THE STORY</span><h2>Part or whole?</h2>
+          <p>The White Rabbit already counted the golden keys and all the keys. Your job is to describe that part as a <strong>percentage of the whole</strong>.</p>
+          <div class="formula-guide percent-whole-guide">
+            <span class="formula-guide-label">Percentage of the whole</span>
+            <div class="formula-guide-main">
+              <span class="formula-frac"><span>part amount</span><span>whole amount</span></span>
+              <span>× 100%</span>
+            </div>
+          </div>
+        </aside>
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">STORY QUEST · 1 PROBLEM</p><h3>The Golden-Key Collection</h3></div><span class="quest-counter blue">Quest 7</span></div>
+          <div class="story-problem-card"><span class="problem-type blue-problem">WHAT PERCENT?</span><p id="percentPrompt"></p></div>
+          <div class="story-support-visual key-visual" id="percentVisual">
+            <div class="key-basket"><span>🔑</span><span>🔑</span><span>🔑</span></div>
+            <div class="key-count-card"><small>GOLDEN</small><strong id="keyPartVisual">—</strong></div>
+            <div class="versus-mark">out of</div>
+            <div class="key-count-card whole"><small>ALL KEYS</small><strong id="keyWholeVisual">—</strong></div>
+            <div class="percent-seal" id="keyPercentVisual">?%</div>
+          </div>
+          <div class="answer-line centered story-answer"><input id="percentStoryInput" inputmode="decimal" autocomplete="off" /><span>%</span><button id="percentStoryCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="percentStoryHint" class="hint-btn" type="button">🔎 Give me a clue</button><button id="percentStoryNew" class="soft-btn" type="button">🎲 New numbers</button></div>
+          <div id="percentStoryHintBox" class="hint-panel hidden"></div>
+          <div id="percentStoryFeedback" class="feedback" aria-live="polite"></div>
+          <div id="percentStoryAttempts" class="attempt-dots"><span></span><span></span><span></span></div>
+          <button id="percentStoryNext" class="next-btn locked" type="button" disabled>Keys sorted! Find Alice's potion →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene remaining-story-scene" id="remainingStory" data-rabbit="Alice used some potion. The tricky part is finding what is LEFT. 🧪">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell reverse">
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">STORY QUEST · 1 PROBLEM</p><h3>Alice's Shrinking Potion</h3></div><span class="quest-counter purple">Quest 8</span></div>
+          <div class="story-problem-card"><span class="problem-type">WHAT REMAINS?</span><p id="remainingPrompt"></p></div>
+          <div class="story-support-visual potion-story-visual" id="remainingVisual">
+            <div class="potion-bottle-story"><div id="remainingPotionFill" class="remaining-potion-fill"></div><span class="bottle-shine"></span></div>
+            <div class="potion-story-copy"><span class="used-tag" id="usedTag">used —%</span><div class="potion-arrow">→</div><strong id="remainingVisualAnswer">How much is left?</strong></div>
+          </div>
+          <div class="answer-line centered story-answer"><input id="remainingInput" inputmode="decimal" autocomplete="off" /><span>mL</span><button id="remainingCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="remainingHint" class="hint-btn" type="button">🔎 Give me a clue</button><button id="remainingNew" class="soft-btn" type="button">🎲 New numbers</button></div>
+          <div id="remainingHintBox" class="hint-panel hidden"></div>
+          <div id="remainingFeedback" class="feedback" aria-live="polite"></div>
+          <div id="remainingAttempts" class="attempt-dots"><span></span><span></span><span></span></div>
+          <button id="remainingNext" class="next-btn locked" type="button" disabled>Potion saved! See what Alice found next →</button>
+        </div>
+        <aside class="story-panel glass-card compact">
+          <span class="quest-tag purple-tag">QUEST 8 · READ THE STORY</span><h2>Used is not the same as left</h2>
+          <p>Ask yourself: if Alice uses part of the potion, should the amount <strong>left</strong> be smaller or bigger than the starting amount?</p>
+          <div class="story-checklist"><span>① What was the starting amount?</span><span>② What part was used?</span><span>③ What does <strong>left</strong> tell you to do?</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="scene finish-scene chapter-transition-scene" id="finish" data-rabbit="You cleared the Percent Garden! But... Alice found five more mystery cards. 👀🐇">
+      <div class="scene-overlay"></div>
+      <div class="finish-panel glass-card chapter-transition-panel">
+        <div class="celebration-sparkles">✦ 🌷 ✨ ♡ ✨ 🌷 ✦</div>
+        <p class="eyebrow">CHAPTER 2 COMPLETE</p>
+        <h1>The Percent Garden Is Restored!</h1>
+        <p class="outro-praise">Just beyond the garden, Alice finds a new trail of story clues. These are a little more challenging — but each one uses ideas you already know.</p>
+        <div class="chapter3-preview" aria-hidden="true">
+          <span>🫖</span><span>🧁</span><span>🧪</span><span>🪙</span><span>🌹</span>
+        </div>
+        <div class="outro-rabbit-row"><span class="outro-rabbit">🐇</span><div>“No giant jump in difficulty — just one mystery at a time. Come on!”</div></div>
+        <button id="chapter3Btn" class="primary-btn" type="button">Start Chapter 3 · Mystery Trail →</button>
+      </div>
+    </section>
+
+    <section class="scene tea-crowd-scene" id="teaCrowdStory" data-rabbit="A bigger tea party! Can you find how many guests chose the special tea? 🫖">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell reverse">
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">CHAPTER 3 · STORY QUEST</p><h3>The Tea Party Crowd</h3></div><span class="quest-counter">Quest 9</span></div>
+          <div class="story-problem-card"><span class="problem-type">% OF AN AMOUNT</span><p id="teaCrowdPrompt"></p></div>
+          <div class="story-support-visual crowd-visual" id="teaCrowdVisual">
+            <div class="crowd-percent" id="crowdPercentVisual">—%</div>
+            <div class="tea-guest-cloud" aria-hidden="true"><span>🫖</span><span>☕</span><span>🫖</span><span>☕</span><span>🫖</span><span>☕</span><span>🫖</span><span>☕</span></div>
+            <div class="crowd-arrow">→</div>
+            <div class="crowd-result"><small>SPECIAL TEA</small><strong id="crowdAnswerVisual">?</strong><span>guests</span></div>
+          </div>
+          <div class="answer-line centered story-answer"><input id="teaCrowdInput" inputmode="decimal" autocomplete="off" /><span>guests</span><button id="teaCrowdCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="teaCrowdHint" class="hint-btn" type="button">🔎 Give me a clue</button><button id="teaCrowdNew" class="soft-btn" type="button">🎲 New numbers</button></div>
+          <div id="teaCrowdHintBox" class="hint-panel hidden"></div><div id="teaCrowdFeedback" class="feedback" aria-live="polite"></div>
+          <div id="teaCrowdAttempts" class="attempt-dots"><span></span><span></span><span></span></div>
+          <button id="teaCrowdNext" class="next-btn locked" type="button" disabled>Tea served! Follow the cake crumbs →</button>
+        </div>
+        <aside class="story-panel glass-card compact"><span class="quest-tag">QUEST 9 · GENTLE ADVANCE</span><h2>Read “of” as multiplication</h2><p>The percentage is a multiplier acting on the total number of guests.</p><div class="of-rule-card"><strong>OF = ×</strong><span>percentage of total → percentage × total</span></div></aside>
+      </div>
+    </section>
+
+    <section class="scene fraction-cake-scene" id="fractionCakeStory" data-rabbit="The cake label uses a fraction — can you translate it into percent? 🧁">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell">
+        <aside class="story-panel glass-card compact"><span class="quest-tag purple-tag">QUEST 10 · FRACTION IN A STORY</span><h2>Same share, different name</h2><p>The fraction tells what share of all the cakes has the special flavor. Wonderland wants the same share written as a percentage.</p><div class="story-checklist"><span>① What fraction is given?</span><span>② Can its denominator become 100?</span><span>③ Keep the value equivalent.</span></div></aside>
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">CHAPTER 3 · STORY QUEST</p><h3>The Cake-Stand Label</h3></div><span class="quest-counter purple">Quest 10</span></div>
+          <div class="story-problem-card"><span class="problem-type">FRACTION → %</span><p id="fractionCakePrompt"></p></div>
+          <div class="story-support-visual cake-visual" id="fractionCakeVisual">
+            <div class="cake-fraction-badge" id="cakeFractionVisual">—</div>
+            <div class="cupcake-row" aria-hidden="true"><span>🧁</span><span>🧁</span><span>🧁</span><span>🧁</span><span>🧁</span></div>
+            <div class="cake-arrow">→</div><div class="cake-percent-badge" id="cakePercentVisual">?%</div>
+          </div>
+          <div class="answer-line centered story-answer"><input id="fractionCakeInput" inputmode="decimal" autocomplete="off" /><span>%</span><button id="fractionCakeCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="fractionCakeHint" class="hint-btn" type="button">🔎 Give me a clue</button><button id="fractionCakeNew" class="soft-btn" type="button">🎲 New fraction</button></div>
+          <div id="fractionCakeHintBox" class="hint-panel hidden"></div><div id="fractionCakeFeedback" class="feedback" aria-live="polite"></div>
+          <div id="fractionCakeAttempts" class="attempt-dots"><span></span><span></span><span></span></div>
+          <button id="fractionCakeNext" class="next-btn locked" type="button" disabled>Label fixed! Visit the potion shelf →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene decimal-empty-scene" id="decimalEmptyStory" data-rabbit="The bottle tells us how full it is as a decimal. But Alice needs the EMPTY percentage! 🧪">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell reverse">
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">CHAPTER 3 · STORY QUEST</p><h3>The Half-Forgotten Potion Label</h3></div><span class="quest-counter blue">Quest 11</span></div>
+          <div class="story-problem-card"><span class="problem-type blue-problem">DECIMAL + REMAINING %</span><p id="decimalEmptyPrompt"></p></div>
+          <div class="story-support-visual decimal-bottle-visual" id="decimalEmptyVisual">
+            <div class="advanced-bottle"><div id="advancedBottleFill" class="advanced-bottle-fill"></div><span class="advanced-shine"></span></div>
+            <div class="decimal-bottle-copy"><span id="decimalFullBadge" class="decimal-full-badge">0.— full</span><span class="potion-arrow">→</span><strong id="decimalEmptyAnswerVisual">?% empty</strong></div>
+          </div>
+          <div class="answer-line centered story-answer"><input id="decimalEmptyInput" inputmode="decimal" autocomplete="off" /><span>% empty</span><button id="decimalEmptyCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="decimalEmptyHint" class="hint-btn" type="button">🔎 Give me a clue</button><button id="decimalEmptyNew" class="soft-btn" type="button">🎲 New bottle</button></div>
+          <div id="decimalEmptyHintBox" class="hint-panel hidden"></div><div id="decimalEmptyFeedback" class="feedback" aria-live="polite"></div>
+          <div id="decimalEmptyAttempts" class="attempt-dots"><span></span><span></span><span></span></div>
+          <button id="decimalEmptyNext" class="next-btn locked" type="button" disabled>Potion decoded! Back to the market →</button>
+        </div>
+        <aside class="story-panel glass-card compact"><span class="quest-tag blue-tag">QUEST 11 · TWO IDEAS</span><h2>Filled and empty make one whole</h2><p>First translate the decimal into a percentage. Then remember that a complete bottle represents <strong>100%</strong>.</p><div class="story-checklist"><span>① What % is filled?</span><span>② Whole bottle = 100%.</span><span>③ The question asks for empty.</span></div></aside>
+      </div>
+    </section>
+
+    <section class="scene budget-story-scene" id="budgetStory" data-rabbit="Sale price first... then how many coins stay in Alice's purse? 🪙">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell">
+        <aside class="story-panel glass-card compact"><span class="quest-tag">QUEST 12 · TWO-STEP STORY</span><h2>One answer becomes the next clue</h2><p>This story has two small steps: find the sale price, then compare it with Alice's budget.</p><div class="story-checklist"><span>① Find the discount.</span><span>② Find the sale price.</span><span>③ Find the coins left.</span></div></aside>
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">CHAPTER 3 · STORY QUEST</p><h3>Alice's Market Budget</h3></div><span class="quest-counter">Quest 12</span></div>
+          <div class="story-problem-card"><span class="problem-type">DISCOUNT + BUDGET</span><p id="budgetPrompt"></p></div>
+          <div class="story-support-visual budget-visual" id="budgetVisual"><div class="wallet-card"><span>👛</span><small>ALICE HAS</small><strong id="budgetStartVisual">—</strong></div><div class="budget-step">−</div><div class="shop-card"><span>🎩</span><small>SALE PRICE</small><strong id="budgetSaleVisual">?</strong></div><div class="budget-step">=</div><div class="left-card"><span>🪙</span><small>LEFT</small><strong id="budgetLeftVisual">?</strong></div></div>
+          <div class="answer-line centered story-answer"><input id="budgetInput" inputmode="decimal" autocomplete="off" /><span>coins left</span><button id="budgetCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="budgetHint" class="hint-btn" type="button">🔎 Give me a clue</button><button id="budgetNew" class="soft-btn" type="button">🎲 New market</button></div>
+          <div id="budgetHintBox" class="hint-panel hidden"></div><div id="budgetFeedback" class="feedback" aria-live="polite"></div>
+          <div id="budgetAttempts" class="attempt-dots"><span></span><span></span><span></span></div>
+          <button id="budgetNext" class="next-btn locked" type="button" disabled>Budget balanced! One final mystery →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene reverse-story-scene" id="reverseStory" data-rabbit="Final mystery! We know one percentage piece — can we rebuild the whole garden? 🌹">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell reverse">
+        <div class="game-card glass-card">
+          <div class="game-heading"><div><p class="eyebrow">CHAPTER 3 · FINAL STORY QUEST</p><h3>The Queen's Hidden Rose Total</h3></div><span class="quest-counter purple">Quest 13</span></div>
+          <div class="story-problem-card"><span class="problem-type">REVERSE PERCENTAGE</span><p id="reversePrompt"></p></div>
+          <div class="story-support-visual reverse-rose-visual" id="reverseVisual"><div id="roseChunks" class="rose-chunks"></div><div class="reverse-equals">→</div><div class="whole-garden-card"><small>100% · ALL ROSES</small><strong id="reverseAnswerVisual">?</strong><span>roses</span></div></div>
+          <div class="answer-line centered story-answer"><input id="reverseInput" inputmode="decimal" autocomplete="off" /><span>roses total</span><button id="reverseCheck" class="primary-btn small" type="button">Check</button></div>
+          <div class="action-row"><button id="reverseHint" class="hint-btn" type="button">🔎 Give me a clue</button><button id="reverseNew" class="soft-btn" type="button">🎲 New garden</button></div>
+          <div id="reverseHintBox" class="hint-panel hidden"></div><div id="reverseFeedback" class="feedback" aria-live="polite"></div>
+          <div id="reverseAttempts" class="attempt-dots"><span></span><span></span><span></span></div>
+          <button id="reverseNext" class="next-btn locked" type="button" disabled>Garden revealed! Finish Chapter 3 →</button>
+        </div>
+        <aside class="story-panel glass-card compact"><span class="quest-tag purple-tag">QUEST 13 · FINAL CHALLENGE</span><h2>Build from a known piece</h2><p>You are given the amount inside one percentage chunk. Use equal chunks to rebuild <strong>100%</strong>.</p><div class="story-checklist"><span>① How big is one percentage chunk?</span><span>② How many equal chunks make 100%?</span><span>③ Rebuild the whole.</span></div></aside>
+      </div>
+    </section>
+
+    <section class="scene final-outro-scene" id="finale" data-rabbit="You finished the Mystery Trail! That was brave, careful thinking! 🎉🐇">
+      <div class="scene-overlay"></div>
+      <div class="finish-panel glass-card encouraging-outro">
+        <div class="celebration-sparkles">✦ 🌷 ✨ ♡ ✨ 🌷 ✦</div>
+        <p class="eyebrow">CHAPTER 3 COMPLETE</p>
+        <h1>You Became Wonderland's Percentage Detective!</h1>
+        <p class="outro-praise">You solved stories where the answer was not always hidden in one obvious calculation. You identified what the question wanted, connected fractions and decimals to percentages, and used one result to unlock the next step.</p>
+        <div class="outro-rabbit-row"><span class="outro-rabbit">🐇</span><div>“Amazing work! A tricky problem does not mean you are stuck — it just means we look for the next clue. You did exactly that!”</div></div>
+        <div class="badge-row"><span>OF = ×</span><span>F ⇄ D ⇄ %</span><span>PART & WHOLE</span><span>TWO-STEP STORIES</span><span>PERCENT DETECTIVE</span></div>
+        <p class="outro-next">You don't have to be fast to be strong at maths. Careful thinking, checking, and trying again are powerful skills. 🌟</p>
+        <button id="againBtn" class="primary-btn" type="button">Play the Full Adventure Again ↻</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
